@@ -4,3 +4,4 @@ Dockerfile
 .gitignore
 README.md
 .env.example
+scripts

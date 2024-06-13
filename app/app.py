@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routes.timeentry import router as TimeEntryRouter
+from app.routes.timeentry import router as TimeEntryRouter
 
 app = FastAPI()
 

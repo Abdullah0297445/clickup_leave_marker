@@ -1,4 +1,4 @@
-import mangum
+from mangum import Mangum
 from app.app import app
 
-handler = mangum(app, lifespan="off")
+handler = Mangum(app, lifespan="auto")

@@ -1,13 +1,28 @@
 from fastapi import APIRouter
 from fastapi import status
-from pydantic import SecretStr
+from pydantic import Field, SecretStr, BaseModel, EmailStr
 import os
 
 router = APIRouter()
 
 
+class AssigneeSchema(BaseModel):
+    id: int
+    username: str
+    email: EmailStr
+
+class PayloadSchema(BaseModel):
+    assignees: list[AssigneeSchema] = Field(default_factory=list)
+    custom_fields: list[dict] = Field(default_factory=list)
+
+
+class WebhookSchema(BaseModel):
+    id: str
+    payload: list[PayloadSchema]
+
+
 @router.post("/", status_code=status.HTTP_204_NO_CONTENT)
-async def create_entry(secret: SecretStr, webhook_data) -> None:
+async def create_entry(secret: SecretStr, webhook_data: WebhookSchema | None = None) -> None:
     """
     Create a time entry from 9AM - 5PM on the day of the leave.
     """
