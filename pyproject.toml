@@ -8,7 +8,8 @@ name = "leaveMarkerClickUp"
 version = "0.1.0"
 dependencies = [
     "fastapi==0.111.0",
-    "mangum==0.17.0"
+    "mangum==0.17.0",
+    "aiohttp[speedups]==3.9.5"
 ]
 requires-python = ">= 3.12"
 authors = [
