@@ -1,0 +1,6 @@
+readme_assets
+Makefile
+Dockerfile
+.gitignore
+README.md
+.env.example
