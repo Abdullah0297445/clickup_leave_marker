@@ -20,11 +20,15 @@ indeed being called by a legitimate source.
 5. When this webhook is called, we track the time for that specific user for the day of the leave via ClickUp API.
 
 ## Technologies used
+This is a cloud-native app. We used following tools and techniques to achieve our goal/solution mentioned above.
+
 1. Integration with ClickUp APIs.
 2. Used FastAPI framework for blazing fast speed since it uses [ASGI](https://asgi.readthedocs.io/en/latest/specs/main.html).
-3. Used docker for packaging the app and for consistent DX (Developer experience).
-4. Use AWS Lambda to deploy the app, due to its scalability and cost-effectiveness.
-5. Used AWS API Gateway as a proxy to handle the routing and security. 
+3. Used ```ASYNC``` python to fasten I/O bound tasks.
+4. Used docker for packaging the app and for consistent DX (Developer experience).
+5. Use AWS Lambda to deploy the app, due to its scalability and cost-effectiveness.
+6. Used AWS API Gateway as a proxy to handle the routing and security. 
+7. Used Dynamo DB with Boto3 to access persisted data.
 
 ## Usage
 You need [Make](https://medium.com/@mohammad.roshandelpoor/makefile-simplifying-command-execution-and-automation-9dbaa6d91ac8#:~:text=Makefile%20is%20a%20powerful%20tool,sharing%20our%20project's%20commands%20easier.) tool installed in your OS to be able to run the code. Luckily for Linux/Ubuntu users, it comes pre-installed. Windows users can download it from [here](https://gnuwin32.sourceforge.net/packages/make.htm). In case your linux distro does not already have it installed then you can install it from [here]().

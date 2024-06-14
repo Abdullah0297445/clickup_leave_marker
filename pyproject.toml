@@ -9,7 +9,8 @@ version = "0.1.0"
 dependencies = [
     "fastapi==0.111.0",
     "mangum==0.17.0",
-    "aiohttp[speedups]==3.9.5"
+    "aiohttp[speedups]==3.9.5",
+    "pytz==2024.1"
 ]
 requires-python = ">= 3.12"
 authors = [
@@ -20,7 +21,11 @@ maintainers = [
     {name = "Abdullah Ajmal", email = "abdullah.ajmal.7@hotmail.com"},
     {name = "Abdullah Ajmal", email = "abdullah.ajmal@carteblanche.tech"},
 ]
-description = "This project aims to streamline a very specific usecase related to Clickup. Please refer to the readme for this scenario."
+description = """This project aims to streamline a very specific usecase related to Clickup. Please refer to the readme
+for this scenario."""
 readme = "README.md"
 license = {file = "LICENSE"}
-keywords = ["AWS", "AWS Lambda", "AWS API Gateway", "ClickUp", "FastAPI", "Uvicorn", "ClickUp Automations", "Docker", "ClickUp API"]
+keywords = [
+    "AWS", "AWS Lambda", "AWS API Gateway", "ClickUp", "FastAPI", "Uvicorn", "ClickUp Automations", "Docker",
+    "ClickUp API", "Python", "Aysnc", "aiohttp", "boto3"
+]
