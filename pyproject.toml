@@ -1,16 +1,14 @@
 [build-system]
-requires = ["setuptools >= 70.0.0"]
+requires = ["setuptools >= 75.8.0"]
 build-backend = "setuptools.build_meta"
 
-
 [project]
-name = "leaveMarkerClickUp"
-version = "0.1.0"
+name = "clickup_leave_marker"
+version = "0.2.0"
 dependencies = [
-    "fastapi==0.111.0",
-    "mangum==0.17.0",
-    "aiohttp[speedups]==3.9.5",
-    "pytz==2024.1"
+    "requests==2.32.3",
+    "pytz==2024.1",
+    "pydantic==2.10.6"
 ]
 requires-python = ">= 3.12"
 authors = [
@@ -26,6 +24,6 @@ for this scenario."""
 readme = "README.md"
 license = {file = "LICENSE"}
 keywords = [
-    "AWS", "AWS Lambda", "AWS API Gateway", "ClickUp", "FastAPI", "Uvicorn", "ClickUp Automations", "Docker",
-    "ClickUp API", "Python", "Aysnc", "aiohttp", "boto3"
+    "AWS", "AWS Lambda", "AWS API Gateway", "ClickUp", "ClickUp Automations", "Docker",
+    "ClickUp API", "Python", "boto3", "Serverless"
 ]

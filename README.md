@@ -1,10 +1,24 @@
-# Leave Marker ClickUp
+# Leave Marker
 
 ## Problem scenario(s)
 
-1. Someone wants to raise a leave but currently (as of 13th June 2024) there's no way to directly mark leaves/vacations
-in ClickUp.
-2. The leave shall also be reflected in the global time sheet view as full day work for the user.
+1. There should be a way for our team who uses Clickup as a management tool to raise/mark leaves but currently
+(as of 29th August 2024) there's no direct way of doing that in ClickUp. 
+2. Leaves shall also be reflected in the global time sheet view as full day work for the user.
+3. When leaves are approved, they shall be synced with AllHours - Our attendance management system.
+
+
+## Our approach to the problem
+
+Leverage ClickUp automations along with forms and webhooks. Let me explain:
+1. Whenever a team member wants to raise a leave, they shall do so via a form.
+2. When form is submitted, a new task (leave) is created in the list.
+3. When the task's status is set to "Approved", an automation is triggered which posts the event data to an HTTP
+endpoint - our code running on AWS lambda behind AWS API Gateway.
+4. Lambda receives the event, extracts the necessary info, and tracks time on the leave task which initiated this whole
+cycle, giving the impression, that the team member was/will be working full time that day.
+5. After marking the time, it also raises a pre-approved leave in AllHours.
+
 
 ## Solution
 1. Create a new list wherever you want which has the following statuses (or any statuses of your liking).
@@ -20,11 +34,11 @@ indeed being called by a legitimate source.
 5. When this webhook is called, we track the time for that specific user for the day of the leave via ClickUp API.
 
 ## Technologies used
-This is a cloud-native app. We used following tools and techniques to achieve our goal/solution mentioned above.
+This is a Serverless app. We used following tools and techniques to achieve our goal/solution mentioned above.
 
-1. Integration with ClickUp APIs.
+1. Integration with ClickUp & AllHours APIs.
 2. Used FastAPI framework for blazing fast speed since it uses [ASGI](https://asgi.readthedocs.io/en/latest/specs/main.html).
-3. Used ```ASYNC``` python to fasten I/O bound tasks.
+3. Used ```ASYNC``` python to improve performance of I/O bound tasks.
 4. Used docker for packaging the app and for consistent DX (Developer experience).
 5. Use AWS Lambda to deploy the app, due to its scalability and cost-effectiveness.
 6. Used AWS API Gateway as a proxy to handle the routing and security. 
@@ -37,3 +51,7 @@ You need [Make](https://medium.com/@mohammad.roshandelpoor/makefile-simplifying-
 make build
 make run
 ```
+
+
+**Note**: This is a temporary PoC/fix ⚡. It will become obsolete the minute, clickUp introduces leave marking feature.
+Just wanted to make it open source anyway. Will archive it when that happens. 
