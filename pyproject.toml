@@ -10,7 +10,7 @@ dependencies = [
     "pytz==2024.1",
     "pydantic==2.10.6"
 ]
-requires-python = ">= 3.12"
+requires-python = ">= 3.13"
 authors = [
     {name = "Abdullah Ajmal", email = "abdullah.ajmal.7@hotmail.com"},
     {name = "Abdullah Ajmal", email = "abdullah.ajmal@carteblanche.tech"},

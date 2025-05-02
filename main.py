@@ -25,7 +25,7 @@ class WebhookSchema(BaseModel):
 
 def handler(event, context):
     """
-    Create a time entry from 9AM - 5PM on the day of the leave.
+    Create a time entry from 9AM - 6PM on the day of the leave.
     """
     print("INFO: Incoming event data: \n\n", event)
 
@@ -52,9 +52,6 @@ def handler(event, context):
         return
 
     task_id = webhook_data.payload.id
-    assignee = webhook_data.payload.assignees[0].id
-
-    print(f"INFO: Processing the leave of {webhook_data.payload.assignees[0].username.capitalize()}")
 
     leave_for = None
     for field in webhook_data.payload.custom_fields:
@@ -69,28 +66,28 @@ def handler(event, context):
                 )
             )
     if not leave_for:
-        print("WARN: The date leave is applied for is empty; returing.")
+        print("ERROR: The date leave is applied for is empty; returing.")
         return
 
-    print("INFO: ID of the user and their applied leave date extracted.")
+    for assignee in webhook_data.payload.assignees:
+        requests.post(
+            f"https://api.clickup.com/api/v2/team/{os.environ.get("CLICKUP_TEAM_ID")}/time_entries",
+            json={
+                "description": f"Marked as leave via the API. Reason: {webhook_data.payload.name}",
+                "start": leave_for,
+                "billable": False,
+                "duration": os.environ.get("CLICKUP_DURATION_TO_TRACK"),
+                "assignee": assignee.id,
+                "tid": task_id
+            },
+            headers={
+                "Content-Type": "application/json",
+                "Authorization": os.environ.get("CLICKUP_API_KEY")
+            }
+        )
+        print(f"INFO: Successfully tracked time for User: {assignee.username}. Reason: {webhook_data.payload.name}")
 
-    requests.post(
-        f"https://api.clickup.com/api/v2/team/{os.environ.get("CLICKUP_TEAM_ID")}/time_entries",
-        json={
-            "description": f"Marked as leave via the API. Reason: {webhook_data.payload.name}",
-            "start": leave_for,
-            "billable": False,
-            "duration": os.environ.get("CLICKUP_DURATION_TO_TRACK"),
-            "assignee": assignee,
-            "tid": task_id
-        },
-        headers={
-            "Content-Type": "application/json",
-            "Authorization": os.environ.get("CLICKUP_API_KEY")
-        }
-    )
-
-    print("INFO: Successfully tracked time for the applied leave.")
+    print("INFO: Successfully tracked time for all assignees.")
 
     return {
         "statusCode": 204,
